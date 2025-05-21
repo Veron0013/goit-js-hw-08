@@ -20,8 +20,15 @@ body {
   background-color: #fff;
 }
 
+.modal {
+  margin: 0 auto;
+  padding: 28px 164px;
+  background-color: #2E2F42;
+}
+
 .gallery {
   margin: 0 auto;
+  padding: 0 0;
   list-style-type: none;
   max-width: 100%;
   display: flex;
@@ -31,7 +38,20 @@ body {
 }
 
 .gallery-image {
-  width: 100%;
-  height: 100%;
-  /*display: block;*/
+  width: 360px;
+  height: 200px;
+  display: block;
+  border-radius: 5px;
+}
+
+.gallery-image-large {
+  width: 1112px;
+  height: 640px;
+  display: block;
+  border-radius: 5px;
+}
+
+.gallery-link:hover .gallery-image {
+  transform: scale(1.05);
+  transition: transform 2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }

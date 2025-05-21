@@ -64,37 +64,43 @@ const images = [
 	},
 ];
 
+const elGallery = document.querySelector(".gallery");
 
-const createGallery = () => {
-
-	const elGallery = document.querySelector(".gallery");
+const createGalleryMark = (arr) => {
 
 	if (!elGallery) { return; }
 
-	let tagTxt = "";
-
-	for (const element of images) {
-
-		if (!element.preview || !element.original || !element.description) {
-			continue;
-		}
-
-		tagTxt += `<li class="gallery-item">
+	return arr.map(element => {
+		return element.preview && element.original && element.description ?
+			`<li class="gallery-item">
 			<a class="gallery-link" href="#">
 				<img
 					class="gallery-image"
 					src="${element.preview}" 
 					data-source="${element.original}"
-					alt="${element.description}"
-					width = "360"
-					heigth = "200">
-				</img>
+					alt="${element.description}"/>
 			</a>
-		</li>`;
-	}
-
-	elGallery.insertAdjacentHTML("afterbegin", tagTxt);
+		</li>`: null
+	})
+		.filter(el => el !== null)
+		.join("");
 }
 
+elGallery.insertAdjacentHTML("afterbegin", createGalleryMark(images));
 
-createGallery();
+elGallery.addEventListener("click", (e) => {
+	if (e.target === e.currentTarget) {
+		return;
+	}
+	const currItem = e.target.closest(".gallery-image");
+
+	const instance = basicLightbox.create(`
+    <div class = "modal"> 
+			<img class="gallery-image-large"
+			src="${currItem.dataset.source}"
+			alt="${currItem.alt}"/> 
+		</div>`);
+
+	instance.show();
+
+})
